@@ -24,7 +24,7 @@ RUN adduser --disabled-password --home /home/builder -gecos '' --uid ${USER_ID} 
 ADD --chown=builder:builder . /home/builder/project
 WORKDIR /home/builder/project
 
-EXPOSE 80
+EXPOSE 1001
 
 # Remove possible temporary build files
 RUN rm -f ./local.properties && \
