@@ -28,7 +28,7 @@ private val client = HttpClient(OkHttp) {
 }
 
 fun main() {
-    embeddedServer(Netty, port = 8080, host = "0.0.0.0") {
+    embeddedServer(Netty, port = 80, host = "0.0.0.0") {
         val ipProxyMap = HashMap<String, IpInfo>()
 
         routing {
