@@ -7,11 +7,9 @@ ENV ANDROID_BUILD_TOOLS_VERSION="30.0.3"
 
 WORKDIR /tmp
 
-# Installing packages
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        unzip \
-        && apt-get clean
+    && apt-get install -y --no-install-recommends unzip \
+    && apt-get clean
 
 # Add user
 ARG user_id
@@ -25,6 +23,8 @@ RUN adduser --disabled-password --home /home/builder -gecos '' --uid ${USER_ID} 
 # Add current content to image
 ADD --chown=builder:builder . /home/builder/project
 WORKDIR /home/builder/project
+
+EXPOSE 80
 
 # Remove possible temporary build files
 RUN rm -f ./local.properties && \

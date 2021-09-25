@@ -1,0 +1,16 @@
+version: "3.3"
+
+services:
+
+  traefik:
+    image: "traefik:v2.5"
+    container_name: "proxydetector"
+    restart: unless-stopped
+    ports:
+      - "1001:80"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.proxydetector.rule=Host(`zieger.dev`)"
+      - "traefik.http.routers.proxydetector.entrypoints=websecure"
+      - "traefik.http.routers.proxydetector.tls.certresolver=myresolver"
+      - "traefik.http.routers.proxydetector.middlewares=compression, ratelimit"
