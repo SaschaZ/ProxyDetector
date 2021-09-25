@@ -10,20 +10,8 @@ WORKDIR /tmp
 # Installing packages
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-        curl \
-        wget \
         unzip \
-        zip \
-        jq \
-        python2.7-minima \
-        && cd /tmp \
-        && curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh \
-        && chmod +x ./nodesource_setup.sh \
-        && ./nodesource_setup.sh \
-        && apt-get install nodejs \
-        && rm -rf /var/lib/apt/lists/ \
-        && apt-get clean \
-        && npm install -g appcenter-cli
+        && apt-get clean
 
 # Add user
 ARG user_id
