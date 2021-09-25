@@ -38,4 +38,4 @@ WORKDIR /home/builder/project
 USER builder
 
 CMD [ "/bin/sh", "-c", \
-    "./gradlew assembleDist; cp ./build/distributions/ProxyDetector-1.0-SNAPSHOT.zip ./ProxyDetector.zip; unzip ./ProxyDetector.zip; cd ./ProxyDetector/bin; ./ProxyDetector" ]
+    "./gradlew assembleDist; cp ./build/distributions/ProxyDetector-1.0-SNAPSHOT.zip ./ProxyDetector.zip; unzip ./ProxyDetector.zip; cd ./ProxyDetector-1.0-SNAPSHOT/bin; ./ProxyDetector" ]
