@@ -38,9 +38,8 @@ WORKDIR /home/builder/project
 USER builder
 
 RUN ./gradlew assembleDist && \
-    cp ./build/distributions/ProxyDetector-1.0-SNAPSHOT.zip && \
-    ./ProxyDetector.zip && \
-    unzip ./ProxyDetector.zip \
+    cp ./build/distributions/ProxyDetector-1.0-SNAPSHOT.zip ./ProxyDetector.zip && \
+    unzip ./ProxyDetector.zip
 
 WORKDIR /home/builder/project/ProxyDetector-1.0-SNAPSHOT/bin
 
