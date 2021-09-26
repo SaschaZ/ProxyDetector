@@ -11,8 +11,6 @@ import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import org.apache.log4j.BasicConfigurator
 
 private const val HOST = "http://ip-api.com/json/"
@@ -34,8 +32,6 @@ fun main() {
             allowCredentials = true
             anyHost()
         }
-
-        val json = Json { prettyPrint = true }
 
         val client = HttpClient(OkHttp) {
             engine {
@@ -61,7 +57,7 @@ fun main() {
                     val result = ipProxyMap[ip] ?: client.get("$HOST$ip$FIELDS")
                     ipProxyMap[ip] = result
 
-                    call.respondText(json.encodeToString(result))
+                    call.respondText("${result.proxy}")
                 }
             }
         }
