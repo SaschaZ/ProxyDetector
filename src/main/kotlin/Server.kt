@@ -39,7 +39,7 @@ fun main() {
                 if (ip?.endsWith("localhost") != false) {
                     call.respondText("localhost")
                 } else {
-                    val result = ipProxyMap[ip] ?: client.get("$HOST$ip$ip$FIELDS")
+                    val result = ipProxyMap[ip] ?: client.get("$HOST$ip$FIELDS")
                     ipProxyMap[ip] = result
 
                     call.respondText("result for ip $ip: $result")
