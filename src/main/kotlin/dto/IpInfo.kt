@@ -48,6 +48,8 @@ data class IpInfo(
     val proxy: Boolean? = null,
     @SerialName("hosting")
     val hosting: Boolean? = null,
+    @SerialName("message")
+    val message: String? = null,
     @SerialName("query")
     val query: String? = null
 )
