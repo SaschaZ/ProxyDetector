@@ -1,3 +1,4 @@
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -6,6 +7,7 @@ dependencyResolutionManagement {
         mavenLocal()
     }
 }
+
 pluginManagement {
     repositories {
         google()
@@ -16,9 +18,9 @@ pluginManagement {
 
     buildscript {
         repositories {
-            gradlePluginPortal()
-            mavenCentral()
             google()
+            mavenCentral()
+            mavenLocal()
         }
         dependencies {
             val kotlinVersion: String = "1.5.10"
@@ -27,5 +29,6 @@ pluginManagement {
         }
     }
 }
+
 rootProject.name = "ProxyDetector"
 

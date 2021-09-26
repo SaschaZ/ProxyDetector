@@ -5,7 +5,6 @@ import io.ktor.client.engine.okhttp.*
 import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
 import io.ktor.client.request.*
-import io.ktor.features.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.server.engine.*
@@ -31,13 +30,13 @@ private val client = HttpClient(OkHttp) {
 fun main() {
     BasicConfigurator.configure()
 
-    embeddedServer(Netty, port = 9000, host = "0.0.0.0") {
+    embeddedServer(Netty, port = 9001, host = "0.0.0.0") {
         val ipProxyMap = HashMap<String, IpInfo>()
 
         routing {
             get("/") {
-                val ip = call.request.origin.remoteHost
-                if (ip.endsWith("localhost")) {
+                val ip = call.request.headers["X-Real-Ip"]
+                if (ip?.endsWith("localhost") != false) {
                     call.respondText("localhost")
                 } else {
                     val result = ipProxyMap[ip] ?: client.get("$HOST$ip$ip$FIELDS")
