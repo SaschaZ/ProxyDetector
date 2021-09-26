@@ -1,9 +1,11 @@
 FROM openjdk:16-slim-buster
 
-# Use the version number of the android sdk tools from here: https://developer.android.com/studio/index.html#downloads.
-ENV ANDROID_SDK_TOOLS_VERSION="7583922"
-ENV ANDROID_PLATFORM_VERSION="30"
-ENV ANDROID_BUILD_TOOLS_VERSION="30.0.3"
+
+ENV USER dockerbuilder
+ENV GROUP pdbuilder
+ENV HOME_PATH /home/${USER}
+ENV PROJECT_FOLDER proxydetector
+ENV PROJECT_PATH ${HOME_PATH}/${PROJECT_FOLDER}
 
 WORKDIR /tmp
 
@@ -12,19 +14,16 @@ RUN apt-get update \
     && apt-get clean
 
 # Add user
-ARG user_id
-ENV USER_ID=${user_id}
-ARG group_id
-ENV GROUP_ID=${group_id}
-
-RUN addgroup --gid ${GROUP_ID} builder
-RUN adduser --disabled-password --home /home/builder -gecos '' --uid ${USER_ID} --gid ${GROUP_ID} builder
+RUN addgroup ${GROUP}
+RUN adduser --disabled-password --home ${HOME_PATH} -gecos '' ${USER}
+RUN adduser ${USER} ${GROUP}
 
 # Add current content to image
-ADD --chown=builder:builder . /home/builder/project
-WORKDIR /home/builder/project
+ADD --chown=${USER}:${GROUP} . ${PROJECT_PATH}
+WORKDIR ${PROJECT_PATH}
 
-EXPOSE 1001
+USER ${USER}
+#EXPOSE 1001
 
 # Remove possible temporary build files
 RUN rm -f ./local.properties && \
@@ -33,14 +32,10 @@ RUN rm -f ./local.properties && \
     rm -rf ~/.m2 && \
     rm -rf ~/.gradle
 
-
-WORKDIR /home/builder/project
-USER builder
-
 RUN ./gradlew assembleDist && \
-    cp ./build/distributions/ProxyDetector-1.0-SNAPSHOT.zip ./ProxyDetector.zip && \
-    unzip ./ProxyDetector.zip
+    cd ./build/distributions && \
+    unzip ./ProxyDetector-1.0-SNAPSHOT.zip
 
-WORKDIR /home/builder/project/ProxyDetector-1.0-SNAPSHOT/bin
+WORKDIR ${PROJECT_PATH}/build/distributions/ProxyDetector-1.0-SNAPSHOT/bin
 
 CMD [ "/bin/sh", "-c", "./ProxyDetector" ]
