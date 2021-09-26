@@ -10,6 +10,7 @@ import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
+import org.apache.log4j.BasicConfigurator
 
 private const val HOST = "http://ip-api.com/json/"
 private const val FIELDS =
@@ -28,7 +29,9 @@ private val client = HttpClient(OkHttp) {
 }
 
 fun main() {
-    embeddedServer(Netty, port = 1001, host = "0.0.0.0") {
+    BasicConfigurator.configure()
+
+    embeddedServer(Netty, port = 9000, host = "0.0.0.0") {
         val ipProxyMap = HashMap<String, IpInfo>()
 
         routing {

@@ -16,6 +16,8 @@ dependencies {
     implementation("io.ktor:ktor-client-serialization:1.5.2")
 
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
+
+    implementation("org.slf4j:slf4j-log4j12:1.7.32")
 }
 
 tasks.withType<KotlinCompile>() {
