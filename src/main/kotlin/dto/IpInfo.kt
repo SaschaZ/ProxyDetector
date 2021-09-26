@@ -7,47 +7,47 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class IpInfo(
     @SerialName("status")
-    val status: String,
+    val status: String? = null,
     @SerialName("country")
-    val country: String,
+    val country: String? = null,
     @SerialName("countryCode")
-    val countryCode: String,
+    val countryCode: String? = null,
     @SerialName("region")
-    val region: String,
+    val region: String? = null,
     @SerialName("regionName")
-    val regionName: String,
+    val regionName: String? = null,
     @SerialName("city")
-    val city: String,
+    val city: String? = null,
     @SerialName("district")
-    val district: String,
+    val district: String? = null,
     @SerialName("zip")
-    val zip: String,
+    val zip: String? = null,
     @SerialName("lat")
-    val lat: Double,
+    val lat: Double? = null,
     @SerialName("lon")
-    val lon: Double,
+    val lon: Double? = null,
     @SerialName("timezone")
-    val timezone: String,
+    val timezone: String? = null,
     @SerialName("offset")
-    val offset: Int,
+    val offset: Int? = null,
     @SerialName("currency")
-    val currency: String,
+    val currency: String? = null,
     @SerialName("isp")
-    val isp: String,
+    val isp: String? = null,
     @SerialName("org")
-    val org: String,
+    val org: String? = null,
     @SerialName("as")
-    val asX: String,
+    val asX: String? = null,
     @SerialName("asname")
-    val asname: String,
+    val asname: String? = null,
     @SerialName("reverse")
-    val reverse: String,
+    val reverse: String? = null,
     @SerialName("mobile")
-    val mobile: Boolean,
+    val mobile: Boolean? = null,
     @SerialName("proxy")
-    val proxy: Boolean,
+    val proxy: Boolean? = null,
     @SerialName("hosting")
-    val hosting: Boolean,
+    val hosting: Boolean? = null,
     @SerialName("query")
-    val query: String
+    val query: String? = null
 )
