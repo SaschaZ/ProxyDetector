@@ -43,7 +43,7 @@ fun main() {
                     val result = ipProxyMap[ip] ?: client.get("$HOST$ip$ip$FIELDS")
                     ipProxyMap[ip] = result
 
-                    call.respondText("result: ${result}")
+                    call.respondText("result for ip $ip: $result")
                 }
             }
         }
