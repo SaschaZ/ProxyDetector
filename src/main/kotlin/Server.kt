@@ -5,6 +5,8 @@ import io.ktor.client.engine.okhttp.*
 import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
 import io.ktor.client.request.*
+import io.ktor.features.*
+import io.ktor.http.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.server.engine.*
@@ -17,24 +19,36 @@ private const val HOST = "http://ip-api.com/json/"
 private const val FIELDS =
     "?fields=status,message,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,offset,currency,isp,org,as,asname,reverse,mobile,proxy,hosting,query"
 
-private val json = Json { prettyPrint = true }
-
-private val client = HttpClient(OkHttp) {
-    engine {
-        config {
-            followRedirects(true)
-            followSslRedirects(true)
-        }
-    }
-    install(JsonFeature) {
-        serializer = KotlinxSerializer(json)
-    }
-}
-
 fun main() {
     BasicConfigurator.configure()
 
     embeddedServer(Netty, port = 9001, host = "0.0.0.0") {
+        install(CORS) {
+            method(HttpMethod.Options)
+            method(HttpMethod.Get)
+            method(HttpMethod.Post)
+            method(HttpMethod.Put)
+            method(HttpMethod.Delete)
+            method(HttpMethod.Patch)
+            header(HttpHeaders.Authorization)
+            allowCredentials = true
+            anyHost()
+        }
+
+        val json = Json { prettyPrint = true }
+
+        val client = HttpClient(OkHttp) {
+            engine {
+                config {
+                    followRedirects(true)
+                    followSslRedirects(true)
+                }
+            }
+            install(JsonFeature) {
+                serializer = KotlinxSerializer()
+            }
+        }
+
         val ipProxyMap = HashMap<String, IpInfo>()
 
         routing {
