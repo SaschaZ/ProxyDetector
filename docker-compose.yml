@@ -3,7 +3,8 @@ version: "3.3"
 services:
 
   traefik:
-    image: "traefik:v2.5"
+    build:
+      dockerfile: ".Dockerfile"
     container_name: "proxydetector"
     restart: unless-stopped
     expose:
